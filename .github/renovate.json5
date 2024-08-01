@@ -1,0 +1,38 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["config:best-practices"],
+  customDatasources: {
+    gcs_connector: {
+      defaultRegistryUrlTemplate: "https://www.confluent.io/hub/page-data/confluentinc/kafka-connect-gcs/page-data.json",
+      transformTemplates: [
+        '{"releases": $reverse($.result.data.hubPlugin.versions).{"version": $}, "homepage": "https://www.confluent.io/hub/confluentinc/kafka-connect-gcs"}',
+      ],
+    },
+  },
+  customManagers: [
+    {
+      customType: "regex",
+      fileMatch: ["^Dockerfile$", "(^|/)\\.github/workflows/.+\\.yaml$"],
+      matchStrings: [
+        "# renovate: datasource=(?<datasource>.+)\\s*.*confluent-hub install .* (?<depName>.+\\/.+):(?<currentValue>[\\d.]+)",
+        "# renovate: datasource=(?<datasource>.+) depName=(?<depName>.+\\/.+)\\s*.*:(?<currentValue>[\\d.]+)",
+      ],
+    },
+  ],
+  packageRules: [
+    {
+      matchManagers: ["github-actions", "dockerfile"],
+      matchUpdateTypes: ["patch", "minor"],
+      groupName: "{{{manager}}} (non-major)",
+      automerge: true,
+      automergeType: "branch",
+    },
+    {
+      matchManagers: ["regex"],
+      matchUpdateTypes: ["patch", "minor"],
+      groupName: "{{{depName}}} (non-major)",
+      automerge: true,
+      automergeType: "branch",
+    },
+  ],
+}
