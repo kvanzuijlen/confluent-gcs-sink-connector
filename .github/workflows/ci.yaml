@@ -35,6 +35,6 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
           # renovate: datasource=custom.gcs_connector depName=confluentinc/kafka-connect-gcs
-          tags: ghcr.io/kvanzuijlen/confluent-gcs-sink-connector:10.1.12
+          tags: ghcr.io/kvanzuijlen/confluent-gcs-sink-connector:10.1.13
           cache-from: type=gha
           cache-to: type=gha,mode=max
