@@ -3,6 +3,8 @@
   extends: [
     'config:best-practices',
   ],
+  prConcurrentLimit: 0,
+  prHourlyLimit: 0,
   customDatasources: {
     gcs_connector: {
       defaultRegistryUrlTemplate: 'https://www.confluent.io/hub/page-data/confluentinc/kafka-connect-gcs/page-data.json',
