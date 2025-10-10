@@ -1,4 +1,4 @@
-FROM confluentinc/cp-kafka-connect:7.9.3@sha256:8953d7112964f0ff3f5c256d71f570626e528f0366f1416e63d841e9f2334d26
+FROM confluentinc/cp-kafka-connect:8.0.2@sha256:82470ad97f8cdb356663ea16e7d3d804fb00ca58d44995e583d7826f657dc9ad
 
 # renovate: datasource=custom.gcs_connector
 RUN confluent-hub install --no-prompt confluentinc/kafka-connect-gcs:10.3.0
